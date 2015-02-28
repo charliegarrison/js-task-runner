@@ -1,2 +1,2 @@
 # js-task-runner
-A task runner for node.js
+A job scheduler and runner for node.js
