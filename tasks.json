@@ -1,0 +1,19 @@
+{
+  "test1": {
+    "file": "./testTask.js",
+    "options": {
+      "time": {
+        "hrs": [0,6,12,18,19,20,21,22,23]
+      },
+      "daysOfWeek": ["mon","tue","wed","fri"],
+      "daysOfMonth": [1,2,3,4,5,6],
+      "months": ["feb","mar"]
+    }
+  },
+  "test2": {
+    "file": "./testTask2.js",
+    "options": {
+      "interval": 20000
+    }
+  }
+}
