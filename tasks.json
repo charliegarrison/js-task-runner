@@ -10,7 +10,7 @@
       "months": ["feb","mar"]
     }
   },
-  "test2": {
+  "findDriver": {
     "file": "./testTask2.js",
     "options": {
       "interval": 20000

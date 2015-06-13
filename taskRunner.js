@@ -10,7 +10,6 @@ var fs = require('fs'),
   taskRunner=module.exports={},
   log;
 
-threadStorm.start();
 
   var taskRunner = module.exports = {},
    tasks,
@@ -100,15 +99,18 @@ threadStorm.start();
         var task = tasks[taskName];
 
         if(task.options.interval) {
-          setInterval(function() {
-            taskRunner.run(task);
-          },task.options.interval);
+          setInterval((function(task) {
+            return function() {
+              taskRunner.run(task);
+            };
+          })(task),task.options.interval);
         }
         else {
           dateTimeTasks[taskName]=task;
         }
 
       });
+
       taskRunner.loop();
     };
 
@@ -211,6 +213,7 @@ threadStorm.ee.on('ready', function() {
       }
 
       tasks=JSON.parse(data);
+      
       Object.keys(tasks).forEach(function(taskName) {
         tasks[taskName].taskID=taskName;
       });
@@ -218,5 +221,7 @@ threadStorm.ee.on('ready', function() {
 
     });
 });
+
+threadStorm.start();
 
 console.log("waiting for thread storm");
