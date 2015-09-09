@@ -8,7 +8,9 @@ var fs = require('fs'),
   events = require('events'),
   eventEmitter = new events.EventEmitter(),
   taskRunner=module.exports={},
-  log;
+  log,
+  writingLogs=false,
+  logQueue=0;
 
 
   var taskRunner = module.exports = {},
@@ -32,16 +34,32 @@ var fs = require('fs'),
             log={};
           }
           else {
-            log=JSON.parse(data);
+
+            try {
+              log=JSON.parse(data);
+            }
+            catch(err) {
+              log={};
+            }
           }
           cb();
         });
     };
 
     taskRunner.writeLogToDisk = function() {
-      fs.writeFile('taskLog.json',JSON.stringify(log),function(err) {
-
-      });
+      if(!writingLogs) {
+        writingLogs=true;
+        fs.writeFile('taskLog.json',JSON.stringify(log),function(err) {
+          writingLogs=false;
+          if(logQueue > 0) {
+            logQueue--;
+            taskRunner.writeLogToDisk();
+          }
+        });
+      }
+      else {
+        logQueue++;
+      }
     };
 
     taskRunner.logTaskStart = function(taskName,date) {
@@ -213,7 +231,8 @@ threadStorm.ee.on('ready', function() {
       }
 
       tasks=JSON.parse(data);
-      
+
+
       Object.keys(tasks).forEach(function(taskName) {
         tasks[taskName].taskID=taskName;
       });
