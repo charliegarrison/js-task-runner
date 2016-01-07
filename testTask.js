@@ -3,5 +3,5 @@ module.exports = function(sessionData,parent) {
     console.log(" a timed task");//new Date().getTime()
   }
 
-  parent.taskCommunicator({msg: "completed"});
+  parent.completed({});
 };
