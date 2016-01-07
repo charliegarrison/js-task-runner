@@ -1,4 +1,4 @@
-var threadStorm = require('./threadStorm.js');
+var threadStorm = require('thread-storm');
 
 if(!threadStorm.isMaster) {
   return;
@@ -227,7 +227,8 @@ var fs = require('fs'),
 threadStorm.ee.on('ready', function() {
     fs.readFile('tasks.json',function(err,data) {
       if(err) {
-        throw new Error("Error reading tasks.json " + err);
+        console.log("Error reading tasks.json " + err);
+        return;
       }
 
       tasks=JSON.parse(data);

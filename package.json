@@ -1,0 +1,30 @@
+{
+  "name": "js-task-runner",
+  "version": "0.0.5",
+  "description": "A task runner for javascript. It gives you the ability to run javascript files on date/time/interval basis",
+  "main": "taskRunner.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/charliegarrison/js-task-runner.git"
+  },
+  "keywords": [
+    "js",
+    "javascript",
+    "task",
+    "runner",
+    "cron",
+    "job"
+  ],
+  "author": "Charlie Garrison",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/charliegarrison/js-task-runner/issues"
+  },
+  "homepage": "https://github.com/charliegarrison/js-task-runner#readme",
+  "dependencies": {
+    "thread-storm": "0.0.2"
+  }
+}
