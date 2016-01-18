@@ -52,7 +52,7 @@ create a file with this content:
 ```javascript
 var cluster = require("cluster");
 if(cluster.isMaster) {
-require("js-task-runner");
+  require("js-task-runner");
 }
 ```
 then run:
