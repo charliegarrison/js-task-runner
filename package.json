@@ -1,6 +1,6 @@
 {
   "name": "js-task-runner",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A task runner for javascript. It gives you the ability to run javascript files on date/time/interval basis",
   "main": "taskRunner.js",
   "scripts": {
