@@ -16,7 +16,8 @@ var fs = require('fs'),
   var taskRunner = module.exports = {},
    tasks,
    dateTimeTasks={},
-   weekDays;
+   weekDays,
+   months;
 
     weekDays={
       0: "sun",
@@ -26,6 +27,21 @@ var fs = require('fs'),
       4: "thu",
       5: "fri",
       6: "sat"
+    };
+
+    months={
+      1: "jan",
+      2: "feb",
+      3: "mar",
+      4: "apr",
+      5: "may",
+      6: "jun",
+      7: "jul",
+      8: "aug",
+      9: "sep",
+      10: "oct",
+      11: "nov",
+      12: "dec"
     };
 
     taskRunner.loadLog = function(cb) {
@@ -102,7 +118,7 @@ var fs = require('fs'),
     taskRunner.restartTasks = function() {
       Object.keys(log).forEach(function(taskName) {
         var task = log[taskName];
-
+        //if the task was started but not ended we want to restart it
         if(task.st && task.ed === null) {
           taskRunner.run(tasks[taskName]);
         }
@@ -147,14 +163,16 @@ var fs = require('fs'),
 
           if(log[taskName] && log[taskName].ed) {
             lastRun = log[taskName].ed;
-            lastRunDate = new Date(lastRun);
+            if(lastRun) {
+                lastRunDate = new Date(lastRun);
+            }
           }
 
           if(task.options.time) {
             //check if its time to run task
-            if(task.options.time.hrs.indexOf((date.getHours() + 1)) > -1) {
+            if(task.options.time.hrs.indexOf((date.getHours())) > -1) {
               //check if we have already ran it in this window
-              if(lastRunDate.getHours() !== date.getHours() || change) {
+              if((!lastRunDate || lastRunDate.getHours() !== date.getHours()) || change) {
                 change=true;
                 runTask=true;
               }
@@ -170,7 +188,7 @@ var fs = require('fs'),
           if(task.options.daysOfWeek) {
             if(task.options.daysOfWeek.indexOf(weekDays[date.getDay()]) > -1) {
               //check if we have already ran it in this window
-              if(lastRunDate.getDay() !== date.getDay() || change) {
+              if((!lastRunDate || lastRunDate.getDay() !== date.getDay()) || change) {
                 change=true;
                 runTask=true;
               }
@@ -186,7 +204,24 @@ var fs = require('fs'),
           if(task.options.daysOfMonth) {
             if(task.options.daysOfMonth.indexOf(date.getDate()) > -1) {
               //check if we have already ran it in this window
-              if(lastRunDate.getDate() !== date.getDate() || change) {
+              if((!lastRunDate || lastRunDate.getDate() !== date.getDate()) || change) {
+                change=true;
+                runTask=true;
+              }
+              else {
+                runTask=false;
+              }
+
+            }
+            else {
+              runTask=false;
+            }
+          }
+
+          if(task.options.months) {
+            if(task.options.months.indexOf(months[date.getMonth()]) > -1) {
+              //check if we have already ran it in this window
+              if((!lastRunDate || lastRunDate.getMonth() !== date.getMonth()) || change) {
                 change=true;
                 runTask=true;
               }
