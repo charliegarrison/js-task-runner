@@ -1,0 +1,93 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'publish' ]
+2 info using npm@2.11.2
+3 info using node@v0.12.6
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec { raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/charliegarrison/repositories/js-task-runner',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/charliegarrison/.npm/js-task-runner/0.0.13/package.tgz not in flight; packing
+9 verbose tar pack [ '/Users/charliegarrison/.npm/js-task-runner/0.0.13/package.tgz',
+9 verbose tar pack   '/Users/charliegarrison/repositories/js-task-runner' ]
+10 verbose tarball /Users/charliegarrison/.npm/js-task-runner/0.0.13/package.tgz
+11 verbose folder /Users/charliegarrison/repositories/js-task-runner
+12 info prepublish js-task-runner@0.0.13
+13 verbose addLocalTarball adding from inside cache /Users/charliegarrison/.npm/js-task-runner/0.0.13/package.tgz
+14 silly cache afterAdd js-task-runner@0.0.13
+15 verbose afterAdd /Users/charliegarrison/.npm/js-task-runner/0.0.13/package/package.json not in flight; writing
+16 verbose afterAdd /Users/charliegarrison/.npm/js-task-runner/0.0.13/package/package.json written
+17 silly publish { name: 'js-task-runner',
+17 silly publish   version: '0.0.13',
+17 silly publish   description: 'A task runner for javascript. It gives you the ability to run javascript files on date/time/interval basis',
+17 silly publish   main: 'taskRunner.js',
+17 silly publish   scripts: { test: 'echo "Error: no test specified" && exit 1' },
+17 silly publish   repository:
+17 silly publish    { type: 'git',
+17 silly publish      url: 'git+https://github.com/charliegarrison/js-task-runner.git' },
+17 silly publish   keywords: [ 'js', 'javascript', 'task', 'runner', 'cron', 'job' ],
+17 silly publish   author: { name: 'Charlie Garrison' },
+17 silly publish   license: 'Unlicense',
+17 silly publish   bugs: { url: 'https://github.com/charliegarrison/js-task-runner/issues' },
+17 silly publish   homepage: 'https://github.com/charliegarrison/js-task-runner#readme',
+17 silly publish   dependencies: { 'thread-storm': '0.0.x' },
+17 silly publish   readme: '# js-task-runner\nA job scheduler and runner for node.js\n\nFirst configure your tasks.json file. Which must be saved in the project root (just above your node_modules folder)\n```javascript\n{\n  "test1": {\n    "file": "testTask.js",\n    "options": {\n      "time": {\n        "hrs": [0,6,12,18,19,20,21,22,23]\n      },\n      "daysOfWeek": ["mon","tue","wed","fri"],\n      "daysOfMonth": [1,2,3,4,5,6],\n      "months": ["feb","mar"]\n    }\n  },\n  "test2": {\n    "file": "testTask2.js",\n    "options": {\n      "interval": 20000\n    }\n  }\n}\n\n```\nThis is where your tasks will be configured. You have the following options:\n\n* file - the file being run\n* options it is either an interval task or a datetime task. If an interval it is in milliseconds. If it is a datetime task options has the following options\n  * hrs - an array of numbers. Can be 0-23\n  * daysOfWeek - an array of strings. Can be mon, tue, wed, thu, fri, sat, sun\n  * daysOfMonth - an array of numbers. Can be 1-31\n  * monts: an array of strings. Can be jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec\n\njs-task-runner implements node-thread-storm for its multithreading. Each task is run in its own thread.\n\nTo create a task you simple need to module.exports a function from a js file. Which must be saved in the project root (just above your node_modules folder). It will be passed two arguments. sessionData and parent. Parent is the node-thread-storm object managing the thread. When you task is done simply call parent.completed()  Ex:\n```javascript\nmodule.exports = function(sessionData,parent) {\n  setTimeout(function() {\n    parent.completed();\n  },10000);\n};\n```\n\nFinally to run js-task-runner simply:\n\n`npm install js-task-runner`\n\ncreate a file with this content:\n```javascript\nrequire("js-task-runner");\n```\nthen run:\n`node fileName`\n\n',
+17 silly publish   readmeFilename: 'README.md',
+17 silly publish   gitHead: '7de1c618c55f0d0ed325063e200c44986be34cf2',
+17 silly publish   _id: 'js-task-runner@0.0.13',
+17 silly publish   _shasum: 'aae7bc8ec93e47485735a63df7e2fb92cc64d9e7',
+17 silly publish   _from: '.' }
+18 verbose getPublishConfig undefined
+19 silly mapToRegistry name js-task-runner
+20 silly mapToRegistry using default registry
+21 silly mapToRegistry registry https://registry.npmjs.org/
+22 silly mapToRegistry uri https://registry.npmjs.org/js-task-runner
+23 verbose publish registryBase https://registry.npmjs.org/
+24 silly publish uploading /Users/charliegarrison/.npm/js-task-runner/0.0.13/package.tgz
+25 verbose request uri https://registry.npmjs.org/js-task-runner
+26 verbose request sending authorization for write operation
+27 info attempt registry request try #1 at 10:42:52 PM
+28 verbose request using bearer token for auth
+29 verbose request id c280058bb1d5177b
+30 http request PUT https://registry.npmjs.org/js-task-runner
+31 http 403 https://registry.npmjs.org/js-task-runner
+32 verbose headers { 'content-type': 'application/json',
+32 verbose headers   'cache-control': 'max-age=300',
+32 verbose headers   'content-length': '96',
+32 verbose headers   'accept-ranges': 'bytes',
+32 verbose headers   date: 'Tue, 23 Feb 2016 03:42:48 GMT',
+32 verbose headers   via: '1.1 varnish',
+32 verbose headers   connection: 'keep-alive',
+32 verbose headers   'x-served-by': 'cache-jfk1032-JFK',
+32 verbose headers   'x-cache': 'MISS',
+32 verbose headers   'x-cache-hits': '0',
+32 verbose headers   'x-timer': 'S1456198967.344531,VS0,VE808' }
+33 verbose request invalidating /Users/charliegarrison/.npm/registry.npmjs.org/js-task-runner on PUT
+34 error publish Failed PUT 403
+35 verbose stack Error: "You cannot publish over the previously published version 0.0.13." : js-task-runner
+35 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:247:14)
+35 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:170:14)
+35 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:354:22)
+35 verbose stack     at Request.emit (events.js:110:17)
+35 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1207:14)
+35 verbose stack     at Request.emit (events.js:129:20)
+35 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1153:12)
+35 verbose stack     at IncomingMessage.emit (events.js:129:20)
+35 verbose stack     at _stream_readable.js:908:16
+35 verbose stack     at process._tickCallback (node.js:355:11)
+36 verbose statusCode 403
+37 verbose pkgid js-task-runner
+38 verbose cwd /Users/charliegarrison/repositories/js-task-runner
+39 error Darwin 15.3.0
+40 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "publish"
+41 error node v0.12.6
+42 error npm  v2.11.2
+43 error code E403
+44 error "You cannot publish over the previously published version 0.0.13." : js-task-runner
+45 error If you need help, you may report this error at:
+45 error     <https://github.com/npm/npm/issues>
+46 verbose exit [ 1, true ]

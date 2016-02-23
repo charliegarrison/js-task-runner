@@ -14,6 +14,15 @@ threadStorm.ee.on('ready', function() {
   threadStorm.runTask("testTask.js",{length: 500});
   threadStorm.runTask("testTask.js",{length: 4000});
   threadStorm.runTask("testTask.js",{length: 1000});
+  threadStorm.runTask("testTask.js",{length: 4000});
+  threadStorm.runTask("testTask.js",{length: 4000});
+  threadStorm.runTask("testTask.js",{length: 4000});
+  threadStorm.runTask("testTask.js",{length: 4000});
+});
+
+threadStorm.ee.on('taskFailed', function() {
+  console.log("***TASK FAILED***");
+  console.log(arguments);
 });
 
 threadStorm.start();

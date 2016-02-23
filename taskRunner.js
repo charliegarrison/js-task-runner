@@ -95,6 +95,19 @@ var fs = require('fs'),
         console.log(msgObj);
       });
 
+      threadStorm.ee.on("taskFailed",function(msgObj) {
+        var failedTask;
+
+        Object.keys(tasks).forEach(function(taskName) {
+          task=tasks[taskName];
+          if(task.file===msgObj.task) {
+            failedTask=task;
+          }
+        });
+
+        completedTask.running=false;
+      });
+
       threadStorm.ee.on("taskComplete",function(msgObj) {
         var completedTask;
 
@@ -251,6 +264,10 @@ var fs = require('fs'),
         task.running=true;
         taskRunner.logTaskStart(task.taskID,new Date().getTime());
         var result=threadStorm.runTask(task.file,null);
+        //if result is false then it could not assign this task a thread and it is therefore not running
+        if(!result) {
+          task.running=false;
+        }
       }
       else {
         console.log("Tried to run task " + task.taskID + " but it is already running");

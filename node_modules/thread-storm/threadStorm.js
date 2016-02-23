@@ -43,6 +43,8 @@ if(cluster.isMaster) {
          task: task,
          data: data
        });
+
+       return true;
      }
      else {
        msg = "Currently there are no available workers to run " + task + ". What a sham.";
@@ -51,6 +53,7 @@ if(cluster.isMaster) {
          msg:msg
        };
        console.log(msg);
+       return false;
      }
    };
 
@@ -106,6 +109,7 @@ if(cluster.isMaster) {
         }
         else {
           console.log("worker " + worker.id + " has disconnected. The nerve...");
+          ee.emit('taskFailed',{task: taskMapping[worker.id]});
         }
         setWorkerUnAvailable(worker);
       });
